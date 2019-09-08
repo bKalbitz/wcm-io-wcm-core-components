@@ -20,5 +20,5 @@
 /**
  * Mixin interfaces for to enhance AEM Sites Core Component models with wcm.io functionality.
  */
-@org.osgi.annotation.versioning.Version("1.0.0")
+@org.osgi.annotation.versioning.Version("1.1.0")
 package io.wcm.wcm.core.components.models.mixin;

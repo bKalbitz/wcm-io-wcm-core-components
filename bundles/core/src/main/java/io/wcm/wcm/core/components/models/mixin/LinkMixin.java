@@ -26,7 +26,6 @@ import org.jetbrains.annotations.Nullable;
 import org.osgi.annotation.versioning.ConsumerType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.wcm.handler.link.Link;
 
@@ -34,7 +33,7 @@ import io.wcm.handler.link.Link;
  * Adds wcm.io Link support to model interface.
  */
 @ConsumerType
-public interface LinkMixin {
+public interface LinkMixin extends com.adobe.cq.wcm.core.components.models.mixin.LinkMixin {
 
   /**
    * Get wcm.io Link handler object
@@ -45,30 +44,40 @@ public interface LinkMixin {
   Link getLinkObject();
 
   /**
-   * Returns true if the link was resolved successful.
-   * @return Link is valid
+   * See {@link com.adobe.cq.wcm.core.components.models.mixin.LinkMixin#getLinkURL()}.
    */
-  @JsonProperty("wcmio:linkValid")
-  default boolean isLinkValid() {
-    return getLinkObject().isValid();
+  @Override
+  default @Nullable String getLinkURL() {
+    return com.adobe.cq.wcm.core.components.models.mixin.LinkMixin.super.getLinkURL();
   }
 
   /**
-   * Resolved link URL.
-   * @return Link URL
+   * See {@link com.adobe.cq.wcm.core.components.models.mixin.LinkMixin#isLinkValid()}.
    */
-  @JsonProperty("wcmio:linkURL")
-  default @Nullable String getLinkURL() {
-    return getLinkObject().getUrl();
+  @JsonIgnore
+  @Override
+  default boolean isLinkValid() {
+    return com.adobe.cq.wcm.core.components.models.mixin.LinkMixin.super.isLinkValid();
+  }
+
+  /**
+   * See {@link com.adobe.cq.wcm.core.components.models.mixin.LinkMixin#getLinkURL()}.
+   */
+  @JsonIgnore
+  @Override
+  default @Nullable Map<String, String> getLinkHtmlAttributes() {
+    return com.adobe.cq.wcm.core.components.models.mixin.LinkMixin.super.getLinkHtmlAttributes();
   }
 
   /**
    * Returns a map of attributes which can be applied to a HTML anchor element.
    * @return Anchor attributes
+   * @deprecated Please use {@link #getLinkHtmlAttributes()}
    */
-  @JsonProperty("wcmio:linkAttributes")
+  @JsonIgnore
+  @Deprecated
   default @Nullable Map<String, String> getLinkAttributes() {
-    return getLinkObject().getAnchorAttributes();
+    return getLinkHtmlAttributes();
   }
 
 }

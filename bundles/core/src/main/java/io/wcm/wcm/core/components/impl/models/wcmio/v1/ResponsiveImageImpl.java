@@ -30,6 +30,7 @@ import static com.day.cq.dam.api.DamConstants.DC_DESCRIPTION;
 import static com.day.cq.dam.api.DamConstants.DC_TITLE;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -42,6 +43,7 @@ import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
@@ -200,6 +202,21 @@ public class ResponsiveImageImpl extends AbstractComponentExporterImpl implement
   @NotNull
   public Link getLinkObject() {
     return link;
+  }
+
+  @Override
+  public @Nullable String getLinkURL() {
+    return link.getUrl();
+  }
+
+  @Override
+  public boolean isLinkValid() {
+    return link.isValid();
+  }
+
+  @Override
+  public @Nullable Map<String, String> getLinkHtmlAttributes() {
+    return link.getAnchorAttributes();
   }
 
   @Override

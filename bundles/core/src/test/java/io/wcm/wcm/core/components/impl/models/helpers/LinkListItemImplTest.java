@@ -52,6 +52,7 @@ class LinkListItemImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testValidLink() {
     Page page = context.create().page(CONTENT_ROOT + "/page1");
     Link link = linkHandler.get(page).build();
@@ -64,6 +65,7 @@ class LinkListItemImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testInvalidLink() {
     Page page = context.create().page(CONTENT_ROOT + "/page1");
     Link link = linkHandler.invalid();

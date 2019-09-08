@@ -60,6 +60,7 @@ class ButtonImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testEmpty() {
     context.currentResource(context.create().resource(page, "button",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE));
@@ -75,6 +76,7 @@ class ButtonImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testProperties() {
     context.currentResource(context.create().resource(page, "button",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE,

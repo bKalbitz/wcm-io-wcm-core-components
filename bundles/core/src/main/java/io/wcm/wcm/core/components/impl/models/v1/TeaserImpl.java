@@ -25,6 +25,7 @@ import static io.wcm.handler.media.MediaNameConstants.PROP_CSS_CLASS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -36,6 +37,7 @@ import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
@@ -183,6 +185,21 @@ public class TeaserImpl extends AbstractComponentExporterImpl implements Teaser,
   }
 
   @Override
+  public @Nullable String getLinkURL() {
+    return link.getUrl();
+  }
+
+  @Override
+  public boolean isLinkValid() {
+    return link.isValid();
+  }
+
+  @Override
+  public @Nullable Map<String, String> getLinkHtmlAttributes() {
+    return link.getAnchorAttributes();
+  }
+
+  @Override
   public boolean isActionsEnabled() {
     return actionsEnabled;
   }
@@ -190,11 +207,6 @@ public class TeaserImpl extends AbstractComponentExporterImpl implements Teaser,
   @Override
   public List<ListItem> getActions() {
     return actions;
-  }
-
-  @Override
-  public String getLinkURL() {
-    return link.getUrl();
   }
 
   @Override

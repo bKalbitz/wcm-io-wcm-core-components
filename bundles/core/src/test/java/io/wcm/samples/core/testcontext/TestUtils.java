@@ -67,21 +67,21 @@ public final class TestUtils {
     assertTrue(object instanceof LinkMixin, "is LinkMixin");
     LinkMixin linkMixin = (LinkMixin)object;
     assertTrue(linkMixin.isLinkValid());
-    assertEquals(ImmutableMap.of("href", href), linkMixin.getLinkAttributes());
+    assertEquals(ImmutableMap.of("href", href), linkMixin.getLinkHtmlAttributes());
   }
 
   public static void assertValidLink(Object object, String href, String target) {
     assertTrue(object instanceof LinkMixin, "is LinkMixin");
     LinkMixin linkMixin = (LinkMixin)object;
     assertTrue(linkMixin.isLinkValid());
-    assertEquals(ImmutableMap.of("href", href, "target", target), linkMixin.getLinkAttributes());
+    assertEquals(ImmutableMap.of("href", href, "target", target), linkMixin.getLinkHtmlAttributes());
   }
 
   public static void assertInvalidLink(Object object) {
     assertTrue(object instanceof LinkMixin, "is LinkMixin");
     LinkMixin linkMixin = (LinkMixin)object;
     assertFalse(linkMixin.isLinkValid());
-    assertNull(linkMixin.getLinkAttributes());
+    assertNull(linkMixin.getLinkHtmlAttributes());
   }
 
   public static void assertValidMedia(Object object, String mediaUrl) {

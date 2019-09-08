@@ -19,7 +19,10 @@
  */
 package io.wcm.wcm.core.components.impl.models.helpers;
 
+import java.util.Map;
+
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.adobe.cq.wcm.core.components.models.ListItem;
 
@@ -47,6 +50,21 @@ public class LinkListItemImpl implements ListItem, LinkMixin {
   @NotNull
   public Link getLinkObject() {
     return link;
+  }
+
+  @Override
+  public @Nullable String getLinkURL() {
+    return link.getUrl();
+  }
+
+  @Override
+  public boolean isLinkValid() {
+    return link.isValid();
+  }
+
+  @Override
+  public @Nullable Map<String, String> getLinkHtmlAttributes() {
+    return link.getAnchorAttributes();
   }
 
   @Override

@@ -19,6 +19,8 @@
  */
 package io.wcm.wcm.core.components.impl.models.v2;
 
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -28,6 +30,7 @@ import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
@@ -73,11 +76,19 @@ public class TitleImpl extends AbstractComponentExporterImpl implements Title, L
     return link;
   }
 
-  // --- fallback implementations ---
+  @Override
+  public @Nullable String getLinkURL() {
+    return link.getUrl();
+  }
 
   @Override
-  public String getLinkURL() {
-    return link.getUrl();
+  public boolean isLinkValid() {
+    return link.isValid();
+  }
+
+  @Override
+  public @Nullable Map<String, String> getLinkHtmlAttributes() {
+    return link.getAnchorAttributes();
   }
 
   // --- delegated methods ---

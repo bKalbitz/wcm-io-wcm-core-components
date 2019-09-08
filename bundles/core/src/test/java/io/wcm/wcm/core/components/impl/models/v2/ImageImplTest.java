@@ -127,6 +127,7 @@ class ImageImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testWithAssetImage() {
     context.currentResource(context.create().resource(page.getContentResource().getPath() + "/image",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE,
@@ -155,6 +156,7 @@ class ImageImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testWithUploadedImage() {
     Resource imageResource = context.create().resource(page.getContentResource().getPath() + "/image",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE,
@@ -183,6 +185,7 @@ class ImageImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testWithImageAndLink() {
     context.currentResource(context.create().resource(page.getContentResource().getPath() + "/image",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE,
@@ -200,6 +203,7 @@ class ImageImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testWithImageAndLink_Decorative() {
     context.currentResource(context.create().resource(page.getContentResource().getPath() + "/image",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE,
@@ -218,6 +222,7 @@ class ImageImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testWithImageAndLink_Decorative_ContentPolicy() {
     context.contentPolicyMapping(RESOURCE_TYPE,
         PN_IS_DECORATIVE, true);
