@@ -39,6 +39,7 @@ import io.wcm.handler.link.Link;
 import io.wcm.handler.link.LinkHandler;
 import io.wcm.wcm.core.components.impl.models.helpers.AbstractComponentExporterImpl;
 import io.wcm.wcm.core.components.impl.models.helpers.LanguageNavigationItemImpl;
+import io.wcm.wcm.core.components.impl.models.helpers.LinkWrapper;
 
 /**
  * wcm.io-based enhancements for {@link LanguageNavigation}:
@@ -78,7 +79,7 @@ public class LanguageNavigationImpl extends AbstractComponentExporterImpl implem
   private NavigationItem toLanguageNavigationItem(NavigationItem item) {
     Page page = item.getPage();
     Link link = linkHandler.get(page).build();
-    return new LanguageNavigationItemImpl(page, link,
+    return new LanguageNavigationItemImpl(page, new LinkWrapper(link),
         item.isActive(), item.getLevel(), toLanguageNavigationItems(item.getChildren()), item.getTitle());
   }
 

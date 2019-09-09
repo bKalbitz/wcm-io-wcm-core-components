@@ -30,7 +30,6 @@ import static com.day.cq.dam.api.DamConstants.DC_DESCRIPTION;
 import static com.day.cq.dam.api.DamConstants.DC_TITLE;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -43,17 +42,16 @@ import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.ImageArea;
+import com.adobe.cq.wcm.core.components.models.Link;
 import com.day.cq.wcm.api.designer.Style;
 
 import io.wcm.handler.commons.dom.HtmlElement;
 import io.wcm.handler.commons.dom.Image;
 import io.wcm.handler.commons.dom.Picture;
-import io.wcm.handler.link.Link;
 import io.wcm.handler.link.LinkHandler;
 import io.wcm.handler.media.Asset;
 import io.wcm.handler.media.Media;
@@ -63,6 +61,7 @@ import io.wcm.handler.url.UrlHandler;
 import io.wcm.sling.models.annotations.AemObject;
 import io.wcm.wcm.core.components.impl.models.helpers.AbstractComponentExporterImpl;
 import io.wcm.wcm.core.components.impl.models.helpers.ImageAreaImpl;
+import io.wcm.wcm.core.components.impl.models.helpers.LinkWrapper;
 import io.wcm.wcm.core.components.models.ResponsiveImage;
 
 /**
@@ -135,11 +134,11 @@ public class ResponsiveImageImpl extends AbstractComponentExporterImpl implement
 
     // resolve link - decorative images have no link and no alt text by definition
     if (isDecorative) {
-      link = linkHandler.invalid();
+      link = new LinkWrapper(linkHandler.invalid());
       alt = null;
     }
     else {
-      link = linkHandler.get(resource).build();
+      link = new LinkWrapper(linkHandler.get(resource).build());
     }
   }
 
@@ -200,23 +199,8 @@ public class ResponsiveImageImpl extends AbstractComponentExporterImpl implement
 
   @Override
   @NotNull
-  public Link getLinkObject() {
+  public Link getLink() {
     return link;
-  }
-
-  @Override
-  public @Nullable String getLinkURL() {
-    return link.getUrl();
-  }
-
-  @Override
-  public boolean isLinkValid() {
-    return link.isValid();
-  }
-
-  @Override
-  public @Nullable Map<String, String> getLinkHtmlAttributes() {
-    return link.getAnchorAttributes();
   }
 
   @Override

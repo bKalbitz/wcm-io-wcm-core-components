@@ -58,7 +58,7 @@ class NavigationItemImplTest {
     Page page = context.create().page(CONTENT_ROOT + "/page1", null,
         ImmutableValueMap.of(JCR_DESCRIPTION, "My Description"));
     Link link = linkHandler.get(page).build();
-    NavigationItem underTest = new NavigationItemImpl(page, link,
+    NavigationItem underTest = new NavigationItemImpl(page, new LinkWrapper(link),
         true, 5, ImmutableList.of());
 
     assertEquals(page.getPath(), underTest.getPage().getPath());

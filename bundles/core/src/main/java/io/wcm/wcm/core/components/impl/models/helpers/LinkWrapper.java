@@ -19,42 +19,46 @@
  */
 package io.wcm.wcm.core.components.impl.models.helpers;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.Map;
 
-import com.adobe.cq.wcm.core.components.models.Link;
-import com.adobe.cq.wcm.core.components.models.ListItem;
+import org.jetbrains.annotations.Nullable;
+
+import com.day.cq.wcm.api.Page;
+
+import io.wcm.handler.link.Link;
 
 /**
- * {@link ListItem} implementation for any links.
+ * Wraps a wcm.io Link Handler Link into a core components link.
  */
-public class LinkListItemImpl implements ListItem {
+public class LinkWrapper implements com.adobe.cq.wcm.core.components.models.Link {
 
-  private final String title;
   private final Link link;
 
   /**
-   * @param title Title
    * @param link Link
    */
-  public LinkListItemImpl(@NotNull String title, @NotNull Link link) {
-    this.title = title;
+  public LinkWrapper(Link link) {
     this.link = link;
   }
 
   @Override
-  @NotNull
-  public Link getLink() {
-    return link;
+  public boolean isValid() {
+    return link.isValid();
   }
 
   @Override
-  public String getURL() {
-    return link.getURL();
+  public @Nullable String getURL() {
+    return link.getUrl();
   }
 
   @Override
-  public String getTitle() {
-    return title;
+  public @Nullable Map<String, String> getHtmlAttributes() {
+    return link.getAnchorAttributes();
+  }
+
+  @Override
+  public @Nullable Page getTargetPage() {
+    return link.getTargetPage();
   }
 
 }

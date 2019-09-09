@@ -61,6 +61,7 @@ class TitleImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testEmpty() {
     context.currentResource(context.create().resource(page, "title",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE));
@@ -72,10 +73,11 @@ class TitleImplTest {
     assertFalse(underTest.isLinkDisabled());
     assertEquals(RESOURCE_TYPE, underTest.getExportedType());
 
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testProperties() {
     context.currentResource(context.create().resource(page, "title",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE,
@@ -91,7 +93,7 @@ class TitleImplTest {
     assertEquals("http://host", underTest.getLinkURL());
     assertEquals(RESOURCE_TYPE, underTest.getExportedType());
 
-    assertValidLink(underTest, "http://host", "_blank");
+    assertValidLink(underTest.getLink(), "http://host", "_blank");
   }
 
 }

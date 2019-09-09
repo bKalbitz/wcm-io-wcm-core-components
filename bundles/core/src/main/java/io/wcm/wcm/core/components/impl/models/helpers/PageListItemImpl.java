@@ -20,22 +20,18 @@
 package io.wcm.wcm.core.components.impl.models.helpers;
 
 import java.util.Calendar;
-import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import com.adobe.cq.wcm.core.components.models.Link;
 import com.adobe.cq.wcm.core.components.models.ListItem;
 import com.day.cq.wcm.api.Page;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.wcm.handler.link.Link;
-import io.wcm.wcm.core.components.models.mixin.LinkMixin;
-
 /**
  * {@link ListItem} implementation for page links.
  */
-public class PageListItemImpl implements ListItem, LinkMixin {
+public class PageListItemImpl implements ListItem {
 
   private final Page page;
   private final Link link;
@@ -51,28 +47,13 @@ public class PageListItemImpl implements ListItem, LinkMixin {
 
   @Override
   @NotNull
-  public Link getLinkObject() {
+  public Link getLink() {
     return link;
   }
 
   @Override
-  public @Nullable String getLinkURL() {
-    return link.getUrl();
-  }
-
-  @Override
-  public boolean isLinkValid() {
-    return link.isValid();
-  }
-
-  @Override
-  public @Nullable Map<String, String> getLinkHtmlAttributes() {
-    return link.getAnchorAttributes();
-  }
-
-  @Override
   public String getURL() {
-    return link.getUrl();
+    return link.getURL();
   }
 
   @Override

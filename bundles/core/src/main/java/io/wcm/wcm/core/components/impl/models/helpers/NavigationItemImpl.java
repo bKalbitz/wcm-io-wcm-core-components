@@ -23,11 +23,10 @@ import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.adobe.cq.wcm.core.components.models.Link;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.Page;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import io.wcm.handler.link.Link;
 
 /**
  * {@link NavigationItem} implementation.

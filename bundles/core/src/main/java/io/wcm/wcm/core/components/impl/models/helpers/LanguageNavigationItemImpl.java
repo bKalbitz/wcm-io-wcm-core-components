@@ -25,10 +25,9 @@ import java.util.Locale;
 import org.jetbrains.annotations.NotNull;
 
 import com.adobe.cq.wcm.core.components.models.LanguageNavigationItem;
+import com.adobe.cq.wcm.core.components.models.Link;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.Page;
-
-import io.wcm.handler.link.Link;
 
 /**
  * {@link LanguageNavigationItem} implementation.

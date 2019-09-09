@@ -62,7 +62,7 @@ class PageListItemImplTest {
     Page page = context.create().page(CONTENT_ROOT + "/page1", null,
         ImmutableValueMap.of(JCR_DESCRIPTION, "My Description"));
     Link link = linkHandler.get(page).build();
-    ListItem underTest = new PageListItemImpl(page, link);
+    ListItem underTest = new PageListItemImpl(page, new LinkWrapper(link));
 
     assertEquals(page.getPath() + ".html", underTest.getURL());
     assertEquals("page1", underTest.getName());
@@ -71,7 +71,7 @@ class PageListItemImplTest {
     assertNull(underTest.getLastModified());
     assertEquals(page.getPath(), underTest.getPath());
 
-    assertValidLink(underTest, page.getPath() + ".html");
+    assertValidLink(underTest.getLink(), page.getPath() + ".html");
   }
 
   @Test
@@ -79,11 +79,11 @@ class PageListItemImplTest {
   void testInvalidLink() {
     Page page = context.create().page(CONTENT_ROOT + "/page1");
     Link link = linkHandler.invalid();
-    ListItem underTest = new PageListItemImpl(page, link);
+    ListItem underTest = new PageListItemImpl(page, new LinkWrapper(link));
 
     assertNull(underTest.getURL());
 
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
   @Test
@@ -91,7 +91,7 @@ class PageListItemImplTest {
     Page page = context.create().page(CONTENT_ROOT + "/page1", null,
         ImmutableValueMap.of(JCR_TITLE, "My Title"));
     Link link = linkHandler.get(page).build();
-    ListItem underTest = new PageListItemImpl(page, link);
+    ListItem underTest = new PageListItemImpl(page, new LinkWrapper(link));
 
     assertEquals("My Title", underTest.getTitle());
   }
@@ -102,7 +102,7 @@ class PageListItemImplTest {
         ImmutableValueMap.of(JCR_TITLE, "My Title",
             PN_PAGE_TITLE, "My Page Title"));
     Link link = linkHandler.get(page).build();
-    ListItem underTest = new PageListItemImpl(page, link);
+    ListItem underTest = new PageListItemImpl(page, new LinkWrapper(link));
 
     assertEquals("My Page Title", underTest.getTitle());
   }
@@ -114,7 +114,7 @@ class PageListItemImplTest {
             PN_PAGE_TITLE, "My Page Title",
             PN_NAV_TITLE, "My Navigation Title"));
     Link link = linkHandler.get(page).build();
-    ListItem underTest = new PageListItemImpl(page, link);
+    ListItem underTest = new PageListItemImpl(page, new LinkWrapper(link));
 
     assertEquals("My Navigation Title", underTest.getTitle());
   }

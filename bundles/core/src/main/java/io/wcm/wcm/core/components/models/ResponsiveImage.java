@@ -26,9 +26,9 @@ import org.osgi.annotation.versioning.ConsumerType;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.wcm.core.components.models.ImageArea;
+import com.adobe.cq.wcm.core.components.models.Link;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.wcm.wcm.core.components.models.mixin.LinkMixin;
 import io.wcm.wcm.core.components.models.mixin.MediaMixin;
 
 /**
@@ -36,7 +36,7 @@ import io.wcm.wcm.core.components.models.mixin.MediaMixin;
  * {@code /apps/wcm-io/wcm/core/components/responsiveimage} component.
  */
 @ConsumerType
-public interface ResponsiveImage extends ComponentExporter, MediaMixin, LinkMixin {
+public interface ResponsiveImage extends ComponentExporter, MediaMixin {
 
   /**
    * Returns the value for the {@code alt} attribute of the image.
@@ -58,6 +58,12 @@ public interface ResponsiveImage extends ComponentExporter, MediaMixin, LinkMixi
    */
   @Nullable
   String getUuid();
+
+  /**
+   * Returns the image's link.
+   * @return the image's link.
+   */
+  Link getLink();
 
   /**
    * Checks if the image should display its caption as a popup (through the <code>&lt;img&gt;</code> {@code title}

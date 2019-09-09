@@ -35,13 +35,13 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.adobe.cq.wcm.core.components.models.Link;
 import com.adobe.cq.wcm.core.components.models.ListItem;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.Page;
 import com.google.common.collect.ImmutableMap;
 
 import io.wcm.testing.mock.aem.junit5.AemContext;
-import io.wcm.wcm.core.components.models.mixin.LinkMixin;
 import io.wcm.wcm.core.components.models.mixin.MediaMixin;
 
 /**
@@ -63,25 +63,22 @@ public final class TestUtils {
     }
   }
 
-  public static void assertValidLink(Object object, String href) {
-    assertTrue(object instanceof LinkMixin, "is LinkMixin");
-    LinkMixin linkMixin = (LinkMixin)object;
-    assertTrue(linkMixin.isLinkValid());
-    assertEquals(ImmutableMap.of("href", href), linkMixin.getLinkHtmlAttributes());
+  public static void assertValidLink(Link link, String href) {
+    assertTrue(link.isValid());
+    assertEquals(href, link.getURL());
+    assertEquals(ImmutableMap.of("href", href), link.getHtmlAttributes());
   }
 
-  public static void assertValidLink(Object object, String href, String target) {
-    assertTrue(object instanceof LinkMixin, "is LinkMixin");
-    LinkMixin linkMixin = (LinkMixin)object;
-    assertTrue(linkMixin.isLinkValid());
-    assertEquals(ImmutableMap.of("href", href, "target", target), linkMixin.getLinkHtmlAttributes());
+  public static void assertValidLink(Link link, String href, String target) {
+    assertTrue(link.isValid());
+    assertEquals(href, link.getURL());
+    assertEquals(ImmutableMap.of("href", href, "target", target), link.getHtmlAttributes());
   }
 
-  public static void assertInvalidLink(Object object) {
-    assertTrue(object instanceof LinkMixin, "is LinkMixin");
-    LinkMixin linkMixin = (LinkMixin)object;
-    assertFalse(linkMixin.isLinkValid());
-    assertNull(linkMixin.getLinkHtmlAttributes());
+  public static void assertInvalidLink(Link link) {
+    assertFalse(link.isValid());
+    assertNull(link.getURL());
+    assertNull(link.getHtmlAttributes());
   }
 
   public static void assertValidMedia(Object object, String mediaUrl) {
@@ -116,9 +113,14 @@ public final class TestUtils {
         .collect(Collectors.toList());
     assertEquals(expected, actual);
 
-    for (ListItem item : items) {
-      assertTrue(item instanceof LinkMixin, item.getPath() + " is LinkMixin");
-    }
+    List<String> expectedUrls = Arrays.stream(pages)
+        .map(page -> page.getPath() + ".html")
+        .collect(Collectors.toList());
+    List<String> actualUrls = items.stream()
+        .map(ListItem::getLink)
+        .map(Link::getURL)
+        .collect(Collectors.toList());
+    assertEquals(expectedUrls, actualUrls);
   }
 
 }

@@ -72,7 +72,7 @@ class ButtonImplTest {
     assertNull(underTest.getLink());
     assertEquals(RESOURCE_TYPE, underTest.getExportedType());
 
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getButtonLink());
   }
 
   @Test
@@ -94,7 +94,7 @@ class ButtonImplTest {
     assertEquals("http://host", underTest.getLink());
     assertEquals(RESOURCE_TYPE, underTest.getExportedType());
 
-    assertValidLink(underTest, "http://host", "_blank");
+    assertValidLink(underTest.getButtonLink(), "http://host", "_blank");
   }
 
 }

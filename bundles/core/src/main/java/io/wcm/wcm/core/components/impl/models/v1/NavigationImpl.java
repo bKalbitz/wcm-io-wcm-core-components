@@ -49,6 +49,7 @@ import io.wcm.handler.link.LinkHandler;
 import io.wcm.handler.url.ui.SiteRoot;
 import io.wcm.sling.models.annotations.AemObject;
 import io.wcm.wcm.core.components.impl.models.helpers.AbstractComponentExporterImpl;
+import io.wcm.wcm.core.components.impl.models.helpers.LinkWrapper;
 import io.wcm.wcm.core.components.impl.models.helpers.NavigationItemImpl;
 
 /**
@@ -119,7 +120,7 @@ public class NavigationImpl extends AbstractComponentExporterImpl implements Nav
       if (!skipNavigationRoot) {
         Link link = linkHandler.get(navigationRoot.page).build();
         boolean isSelected = checkSelected(navigationRoot.page, link);
-        NavigationItemImpl root = new NavigationItemImpl(navigationRoot.page, link, isSelected, 0, result);
+        NavigationItemImpl root = new NavigationItemImpl(navigationRoot.page, new LinkWrapper(link), isSelected, 0, result);
         result = new ArrayList<>();
         result.add(root);
       }
@@ -150,7 +151,7 @@ public class NavigationImpl extends AbstractComponentExporterImpl implements Nav
         if (skipNavigationRoot) {
           level = level - 1;
         }
-        pages.add(new NavigationItemImpl(page, link, isSelected, level, children));
+        pages.add(new NavigationItemImpl(page, new LinkWrapper(link), isSelected, level, children));
       }
     }
     return pages;

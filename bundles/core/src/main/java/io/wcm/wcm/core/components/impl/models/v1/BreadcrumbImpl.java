@@ -46,6 +46,7 @@ import io.wcm.handler.url.ui.SiteRoot;
 import io.wcm.sling.models.annotations.AemObject;
 import io.wcm.wcm.core.components.impl.models.helpers.AbstractComponentExporterImpl;
 import io.wcm.wcm.core.components.impl.models.helpers.BreadcrumbItemImpl;
+import io.wcm.wcm.core.components.impl.models.helpers.LinkWrapper;
 
 /**
  * wcm.io-based enhancements for {@link Breadcrumb}:
@@ -100,7 +101,7 @@ public class BreadcrumbImpl extends AbstractComponentExporterImpl implements Bre
       if (!(isActivePage && hideCurrent)) {
         if (checkIfNotHidden(page)) {
           Link link = linkHandler.get(page).build();
-          NavigationItem navigationItem = new BreadcrumbItemImpl(page, link,
+          NavigationItem navigationItem = new BreadcrumbItemImpl(page, new LinkWrapper(link),
               isActivePage, page.getDepth(), Collections.emptyList());
           result.add(0, navigationItem);
         }

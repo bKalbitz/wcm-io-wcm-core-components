@@ -25,7 +25,6 @@ import static io.wcm.handler.media.MediaNameConstants.PROP_CSS_CLASS;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -41,20 +40,20 @@ import org.jetbrains.annotations.Nullable;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
+import com.adobe.cq.wcm.core.components.models.Link;
 import com.adobe.cq.wcm.core.components.models.ListItem;
 import com.adobe.cq.wcm.core.components.models.Teaser;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.designer.Style;
 
-import io.wcm.handler.link.Link;
 import io.wcm.handler.link.LinkHandler;
 import io.wcm.handler.media.Media;
 import io.wcm.handler.media.MediaHandler;
 import io.wcm.handler.richtext.RichTextHandler;
 import io.wcm.sling.models.annotations.AemObject;
 import io.wcm.wcm.core.components.impl.models.helpers.AbstractComponentExporterImpl;
+import io.wcm.wcm.core.components.impl.models.helpers.LinkWrapper;
 import io.wcm.wcm.core.components.impl.models.helpers.LinkListItemImpl;
-import io.wcm.wcm.core.components.models.mixin.LinkMixin;
 import io.wcm.wcm.core.components.models.mixin.MediaMixin;
 
 /**
@@ -69,7 +68,7 @@ import io.wcm.wcm.core.components.models.mixin.MediaMixin;
     resourceType = TeaserImpl.RESOURCE_TYPE)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class TeaserImpl extends AbstractComponentExporterImpl implements Teaser, MediaMixin, LinkMixin {
+public class TeaserImpl extends AbstractComponentExporterImpl implements Teaser, MediaMixin {
 
   static final String RESOURCE_TYPE = "wcm-io/wcm/core/components/teaser/v1/teaser";
 
@@ -127,7 +126,7 @@ public class TeaserImpl extends AbstractComponentExporterImpl implements Teaser,
       if (actionsNode != null) {
         for (Resource actionResource : actionsNode.getChildren()) {
           String actionTitle = actionResource.getValueMap().get(PN_ACTION_TEXT, String.class);
-          Link actionLink = linkHandler.get(actionResource).build();
+          Link actionLink = new LinkWrapper(linkHandler.get(actionResource).build());
           if (actionTitle != null && actionLink.isValid()) {
             actions.add(new LinkListItemImpl(actionTitle, actionLink));
             if (targetPage == null) {
@@ -138,12 +137,12 @@ public class TeaserImpl extends AbstractComponentExporterImpl implements Teaser,
         }
       }
       // primary link is not enabled when actions are enabled
-      link = linkHandler.invalid();
+      link = new LinkWrapper(linkHandler.invalid());
     }
 
     // if no actions enabled, resolve primary teaser link
     else {
-      link = linkHandler.get(resource).build();
+      link = new LinkWrapper(linkHandler.get(resource).build());
       targetPage = link.getTargetPage();
     }
 
@@ -180,23 +179,13 @@ public class TeaserImpl extends AbstractComponentExporterImpl implements Teaser,
   }
 
   @Override
-  public @NotNull Link getLinkObject() {
+  public @NotNull Link getLink() {
     return link;
   }
 
   @Override
   public @Nullable String getLinkURL() {
-    return link.getUrl();
-  }
-
-  @Override
-  public boolean isLinkValid() {
-    return link.isValid();
-  }
-
-  @Override
-  public @Nullable Map<String, String> getLinkHtmlAttributes() {
-    return link.getAnchorAttributes();
+    return link.getURL();
   }
 
   @Override

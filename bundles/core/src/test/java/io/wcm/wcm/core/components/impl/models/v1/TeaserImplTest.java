@@ -87,6 +87,7 @@ class TeaserImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testEmpty() {
     context.currentResource(context.create().resource(page, "teaser",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE));
@@ -104,10 +105,11 @@ class TeaserImplTest {
     assertEquals(RESOURCE_TYPE, underTest.getExportedType());
 
     assertInvalidMedia(underTest);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testWithImageAndPrimaryLink() {
     context.currentResource(context.create().resource(page, "teaser",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE,
@@ -131,7 +133,7 @@ class TeaserImplTest {
     assertEquals(RESOURCE_TYPE, underTest.getExportedType());
 
     assertValidMedia(underTest, "/content/dam/sample/sample.jpg/_jcr_content/renditions/original./sample.jpg");
-    assertValidLink(underTest, "http://host", "_blank");
+    assertValidLink(underTest.getLink(), "http://host", "_blank");
   }
 
   @Test
@@ -206,6 +208,7 @@ class TeaserImplTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testWithActions() {
     Resource resource = context.create().resource(page, "teaser",
         PROPERTY_RESOURCE_TYPE, RESOURCE_TYPE,
@@ -227,20 +230,21 @@ class TeaserImplTest {
 
     assertTrue(underTest.isActionsEnabled());
     assertNull(underTest.getLinkURL());
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
 
     assertEquals(2, underTest.getActions().size());
 
     ListItem action1 = underTest.getActions().get(0);
     assertEquals("Action 1", action1.getTitle());
-    assertValidLink(action1, "http://host/action1");
+    assertValidLink(action1.getLink(), "http://host/action1");
 
     ListItem action3 = underTest.getActions().get(1);
     assertEquals("Action 3", action3.getTitle());
-    assertValidLink(action3, "http://host/action3");
+    assertValidLink(action3.getLink(), "http://host/action3");
   }
 
   @Test
+  @SuppressWarnings("deprecation")
   void testWithActions_DisabledViaPolicy() {
     context.contentPolicyMapping(RESOURCE_TYPE,
         PN_ACTIONS_DISABLED, true);
@@ -259,7 +263,7 @@ class TeaserImplTest {
 
     assertFalse(underTest.isActionsEnabled());
     assertEquals("http://host", underTest.getLinkURL());
-    assertValidLink(underTest, "http://host");
+    assertValidLink(underTest.getLink(), "http://host");
 
     assertTrue(underTest.getActions().isEmpty());
   }

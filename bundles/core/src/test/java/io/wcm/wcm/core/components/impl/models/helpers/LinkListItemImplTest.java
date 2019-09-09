@@ -56,12 +56,12 @@ class LinkListItemImplTest {
   void testValidLink() {
     Page page = context.create().page(CONTENT_ROOT + "/page1");
     Link link = linkHandler.get(page).build();
-    ListItem underTest = new LinkListItemImpl("My Title", link);
+    ListItem underTest = new LinkListItemImpl("My Title", new LinkWrapper(link));
 
     assertEquals("My Title", underTest.getTitle());
     assertEquals(page.getPath() + ".html", underTest.getURL());
 
-    assertValidLink(underTest, page.getPath() + ".html");
+    assertValidLink(underTest.getLink(), page.getPath() + ".html");
   }
 
   @Test
@@ -69,11 +69,11 @@ class LinkListItemImplTest {
   void testInvalidLink() {
     Page page = context.create().page(CONTENT_ROOT + "/page1");
     Link link = linkHandler.invalid();
-    ListItem underTest = new PageListItemImpl(page, link);
+    ListItem underTest = new PageListItemImpl(page, new LinkWrapper(link));
 
     assertNull(underTest.getURL());
 
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
 }

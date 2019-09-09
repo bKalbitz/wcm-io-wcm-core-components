@@ -109,7 +109,7 @@ class ImageImplTest {
     assertNull(underTest.getAreas());
 
     assertInvalidMedia(underTest);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getImageLink());
 
     assertEquals(RESOURCE_TYPE, underTest.getExportedType());
   }
@@ -123,7 +123,7 @@ class ImageImplTest {
     Image underTest = AdaptTo.notNull(context.request(), Image.class);
 
     assertInvalidMedia(underTest);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getImageLink());
   }
 
   @Test
@@ -152,7 +152,7 @@ class ImageImplTest {
     assertNull(underTest.getAreas());
 
     assertValidMedia(underTest, expectedMediaUrl);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getImageLink());
   }
 
   @Test
@@ -181,7 +181,7 @@ class ImageImplTest {
     assertNull(underTest.getAreas());
 
     assertValidMedia(underTest, expectedMediaUrl);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getImageLink());
   }
 
   @Test
@@ -199,7 +199,7 @@ class ImageImplTest {
     assertEquals("Asset Description", underTest.getAlt());
     assertEquals("http://myhost", underTest.getLink());
 
-    assertValidLink(underTest, "http://myhost");
+    assertValidLink(underTest.getImageLink(), "http://myhost");
   }
 
   @Test
@@ -218,7 +218,7 @@ class ImageImplTest {
     assertNull(underTest.getAlt());
     assertNull(underTest.getLink());
 
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getImageLink());
   }
 
   @Test
@@ -239,7 +239,7 @@ class ImageImplTest {
     assertNull(underTest.getAlt());
     assertNull(underTest.getLink());
 
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getImageLink());
   }
 
   @Test

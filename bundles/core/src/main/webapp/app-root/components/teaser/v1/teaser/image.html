@@ -5,8 +5,8 @@
 <sly data-sly-template.image="${@ teaser}">
   <div class="cmp-teaser__image"  data-sly-test="${teaser.mediaValid}">
     <a class="cmp-image__link"
-        data-sly-unwrap="${!teaser.linkValid}"
-        data-sly-attribute="${teaser.linkHtmlAttributes}">
+        data-sly-unwrap="${!teaser.link.valid}"
+        data-sly-attribute="${teaser.link.htmlAttributes}">
 
       <!--/* Use context='unsafe' to support responsive markup with picture/source etc.
              which is otherwise filter out by default AEM XSS settings */-->

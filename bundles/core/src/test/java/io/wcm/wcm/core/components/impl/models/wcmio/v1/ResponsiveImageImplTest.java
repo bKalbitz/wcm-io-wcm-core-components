@@ -99,7 +99,7 @@ class ResponsiveImageImplTest {
     assertNull(underTest.getAreas());
 
     assertInvalidMedia(underTest);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
 
     assertEquals(RESOURCE_TYPE, underTest.getExportedType());
   }
@@ -113,7 +113,7 @@ class ResponsiveImageImplTest {
     ResponsiveImage underTest = AdaptTo.notNull(context.request(), ResponsiveImage.class);
 
     assertInvalidMedia(underTest);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
   @Test
@@ -137,7 +137,7 @@ class ResponsiveImageImplTest {
     assertEquals("Asset Title", underTest.getMediaObject().getElement().getAttributeValue("title"));
 
     assertValidMedia(underTest, expectedMediaUrl);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
   @Test
@@ -160,7 +160,7 @@ class ResponsiveImageImplTest {
     assertNull(underTest.getAreas());
 
     assertValidMedia(underTest, expectedMediaUrl);
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
   @Test
@@ -176,7 +176,7 @@ class ResponsiveImageImplTest {
     assertEquals("Asset Title", underTest.getTitle());
     assertEquals("Asset Description", underTest.getAlt());
 
-    assertValidLink(underTest, "http://myhost");
+    assertValidLink(underTest.getLink(), "http://myhost");
   }
 
   @Test
@@ -193,7 +193,7 @@ class ResponsiveImageImplTest {
     assertEquals("Asset Title", underTest.getTitle());
     assertNull(underTest.getAlt());
 
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
   @Test
@@ -212,7 +212,7 @@ class ResponsiveImageImplTest {
     assertEquals("Asset Title", underTest.getTitle());
     assertNull(underTest.getAlt());
 
-    assertInvalidLink(underTest);
+    assertInvalidLink(underTest.getLink());
   }
 
   @Test

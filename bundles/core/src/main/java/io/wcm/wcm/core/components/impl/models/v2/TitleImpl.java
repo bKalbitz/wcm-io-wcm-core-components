@@ -19,8 +19,6 @@
  */
 package io.wcm.wcm.core.components.impl.models.v2;
 
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -34,12 +32,12 @@ import org.jetbrains.annotations.Nullable;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
+import com.adobe.cq.wcm.core.components.models.Link;
 import com.adobe.cq.wcm.core.components.models.Title;
 
-import io.wcm.handler.link.Link;
 import io.wcm.handler.link.LinkHandler;
 import io.wcm.wcm.core.components.impl.models.helpers.AbstractComponentExporterImpl;
-import io.wcm.wcm.core.components.models.mixin.LinkMixin;
+import io.wcm.wcm.core.components.impl.models.helpers.LinkWrapper;
 
 /**
  * wcm.io-based enhancements for {@link Title}:
@@ -53,7 +51,7 @@ import io.wcm.wcm.core.components.models.mixin.LinkMixin;
 @Exporter(
     name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class TitleImpl extends AbstractComponentExporterImpl implements Title, LinkMixin {
+public class TitleImpl extends AbstractComponentExporterImpl implements Title {
 
   static final String RESOURCE_TYPE = "wcm-io/wcm/core/components/title/v2/title";
 
@@ -67,28 +65,18 @@ public class TitleImpl extends AbstractComponentExporterImpl implements Title, L
 
   @PostConstruct
   private void activate() {
-    link = linkHandler.get(resource).build();
+    link = new LinkWrapper(linkHandler.get(resource).build());
   }
 
   @Override
   @NotNull
-  public Link getLinkObject() {
+  public Link getLink() {
     return link;
   }
 
   @Override
   public @Nullable String getLinkURL() {
-    return link.getUrl();
-  }
-
-  @Override
-  public boolean isLinkValid() {
-    return link.isValid();
-  }
-
-  @Override
-  public @Nullable Map<String, String> getLinkHtmlAttributes() {
-    return link.getAnchorAttributes();
+    return link.getURL();
   }
 
   // --- delegated methods ---
